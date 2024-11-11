@@ -1,27 +1,63 @@
 #include <SDL2/SDL.h>
 #include <iostream>
 
-int main(int argc, char* argv[]) {
-    // Initialisation de SDL
-    if (SDL_Init(SDL_INIT_VIDEO) != 0) {
-        std::cerr << "Erreur d'initialisation de SDL: " << SDL_GetError() << std::endl;
-        return 1;
+#include "../includes/DrawerMgr.h"
+#include "../includes/WindowMgr.h"
+
+// ---- class list :
+// ---- class WindowMgr (handle window options) -> creer une interface pour tout type de map
+// ---- class RenderMgr ? (le renderer est le bail qui va dessiner sur la window)
+// ---- class InputMapParser (parse the map and store its content)
+// ---- class InputHandler.h (handle user inputs from keyboard)
+
+int main(int argc, char* argv[]) 
+{
+    uint8_t retVal = 0;
+
+    if (argc != 1) // for now 1 but should be 2 (map as input)
+    {
+        std::cerr << "ERROR : usage = ./wolf3d <input_map.map>" << std::endl;
+        retVal = -1;
+    }
+    else
+    {
+        // Check SDL initialization
+        if (SDL_Init(SDL_INIT_VIDEO) != 0) 
+        {
+            std::cerr << "SDL initialisation encountered a problem ! Error : " << SDL_GetError() << std::endl;
+            return 1;
+        }
+        else
+        {
+            // everything is good (arg nb and SDL init OK)
+            // parser la map en entree et donner les parametres a la classe (resolution etc...)
+            WindowMgr windowMgr(800, 600); // QUESTION : creer sur le tas ou la pile la classe WindowMgr ?
+            DrawerMgr drawerMgr;
+
+            drawerMgr.setWindowBackground(windowMgr.getWindow())
+            drawerMgr.drawPixel(windowMgr.getWindow());
+            bool isRunning = true;
+            SDL_Event event;
+            while (isRunning) 
+            {
+                while (SDL_PollEvent(&event)) 
+                {
+                    if (event.type == SDL_QUIT) 
+                    {
+                        isRunning = false;
+                    }
+                }
+            }
+        }
     }
 
-    // Création de la fenêtre
-    SDL_Window* window = SDL_CreateWindow("SDL2 Window",
-                                          SDL_WINDOWPOS_CENTERED,
-                                          SDL_WINDOWPOS_CENTERED,
-                                          800, 600, SDL_WINDOW_SHOWN);
-    if (!window) {
-        std::cerr << "Erreur de création de la fenêtre: " << SDL_GetError() << std::endl;
-        SDL_Quit();
-        return 1;
-    }
+    return retVal;
+
 
     // Création du renderer
-    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-    if (!renderer) {
+    /*SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    if (!renderer) 
+    {
         std::cerr << "Erreur de création du renderer: " << SDL_GetError() << std::endl;
         SDL_DestroyWindow(window);
         SDL_Quit();
@@ -40,9 +76,12 @@ int main(int argc, char* argv[]) {
     // Boucle d'attente avant la fermeture
     bool isRunning = true;
     SDL_Event event;
-    while (isRunning) {
-        while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_QUIT) {
+    while (isRunning) 
+    {
+        while (SDL_PollEvent(&event)) 
+        {
+            if (event.type == SDL_QUIT) 
+            {
                 isRunning = false;
             }
         }
@@ -50,8 +89,7 @@ int main(int argc, char* argv[]) {
 
     // Nettoyage et fermeture de SDL
     SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-    SDL_Quit();
+    SDL_Quit();*/
 
     return 0;
 }

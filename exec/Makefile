@@ -7,7 +7,7 @@ CODE_FOLDER = ../code/
 TARGET = wolf3d
 
 # Sources files
-SRC = $(CODE_FOLDER)$(SRC_FOLDER)main.cpp
+SRC = $(CODE_FOLDER)$(SRC_FOLDER)*.cpp
 
 # Flags
 CXX = g++
