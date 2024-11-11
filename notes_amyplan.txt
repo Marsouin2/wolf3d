@@ -1,0 +1,10 @@
+Notes suite a la video de amyPlant :
+
+y a un fichier input
+
+- faire une vue dynamique et subjective
+
+- utilise le raycasting
+    - map en 2d qui va passer en 3d (map 2d = 1#mur 2#object 0#espacesvides)
+
+1 - parser la map
