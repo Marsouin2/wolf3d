@@ -1,18 +1,40 @@
 #include "../includes/DrawerMgr.h"
 
+DrawerMgr::DrawerMgr(SDL_Window *rWindow)
+{
+    if (!rWindow)
+        std::cout << "Window is null !" << std::endl;
+    else
+        _renderer = SDL_CreateRenderer(rWindow, -1, SDL_RENDERER_ACCELERATED);
+
+
+    if (!_renderer)
+    {
+        std::cout << "le renderer est null" << std::endl;
+    }
+
+    setBackgroundBlack();
+}
+
 DrawerMgr::~DrawerMgr()
 {
     destroyRenderer();
 }
 
-int DrawerMgr::createRenderer(WindowMgr *rWindow)
+void DrawerMgr::setBackgroundBlack(void)
 {
-    _renderer = SDL_CreateRenderer(rWindow->getWindow(), -1, SDL_RENDERER_ACCELERATED);
+    SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 255);
+    SDL_RenderClear(_renderer);
+}
+
+int DrawerMgr::createRenderer(SDL_Window *rWindow)
+{
+    _renderer = SDL_CreateRenderer(rWindow, -1, SDL_RENDERER_ACCELERATED);
 
     return 0;
 }
 
-void DrawerMgr::destroyRenderer()
+void DrawerMgr::destroyRenderer(void)
 {
     SDL_DestroyRenderer(_renderer);
 }

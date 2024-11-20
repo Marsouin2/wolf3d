@@ -22,13 +22,13 @@ int WindowMgr::drawWindow(void)
 {
     int retVal = 0;
     // Création de la fenêtre
-    SDL_Window* window = SDL_CreateWindow("wolf3d",
-                                          SDL_WINDOWPOS_CENTERED,
-                                          SDL_WINDOWPOS_CENTERED,
-                                          _width, _height, SDL_WINDOW_SHOWN);
-    if (!window) 
+    _window = SDL_CreateWindow("wolf3d",
+                               SDL_WINDOWPOS_CENTERED,
+                               SDL_WINDOWPOS_CENTERED,
+                               _width, _height, SDL_WINDOW_SHOWN);
+    if (!_window) 
     {
-        std::cerr << "Erreur de création de la fenêtre: " << SDL_GetError() << std::endl;
+        std::cout << "Erreur de création de la fenêtre: " << SDL_GetError() << std::endl;
         SDL_Quit();
         retVal = -1;
     }

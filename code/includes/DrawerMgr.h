@@ -4,13 +4,16 @@
 
 class DrawerMgr
 {
-private:
+private: // attributes
     SDL_Renderer* _renderer;
-public:
-    DrawerMgr() = default;
-    virtual ~DrawerMgr();
+private: // functions
+    void setBackgroundBlack();
 
-    int createRenderer(WindowMgr*rWindow);
+public: // attributes
+public: // functions
+    virtual ~DrawerMgr();
+    DrawerMgr(SDL_Window *rWindow);
+    int createRenderer(SDL_Window *rWindow);
     void drawPixel(); // ici ce serait bien qu'au lieu de prendre un bail SDL ca prenne genre une classe pour abstract SDL
     void setWindowBackground();
     void destroyRenderer(); // pareil ici 
