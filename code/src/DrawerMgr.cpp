@@ -50,5 +50,31 @@ void DrawerMgr::drawPixel(void)
     // Dessin d'un pixel bleu au centre de l'écran
     SDL_SetRenderDrawColor(_renderer, 0, 0, 255, 255);  // bleu
     SDL_RenderDrawPoint(_renderer, 400, 300);           // centre de la fenêtre (800x600)
+}
+
+void DrawerMgr::drawHorizontalLine(const int &length, const int &startPosX, const int &startPosY)
+{
+    int tempoStartPosX = startPosX;
+    SDL_SetRenderDrawColor(_renderer, 0, 0, 255, 255);  // bleu
+    while (tempoStartPosX != (startPosX + length))
+    {
+        SDL_RenderDrawPoint(_renderer, tempoStartPosX, startPosY);
+        tempoStartPosX++;
+    }
+}
+
+void DrawerMgr::drawVerticalLine(const int &length, const int &startPosX, const int &startPosY)
+{
+    int tempoStartPosY = startPosY;
+    SDL_SetRenderDrawColor(_renderer, 0, 0, 255, 255);  // bleu
+    while (tempoStartPosY != (startPosY + length))
+    {
+        SDL_RenderDrawPoint(_renderer, startPosX, tempoStartPosY);
+        tempoStartPosY++;
+    }
+}
+
+void DrawerMgr::renderWindow(void)
+{
     SDL_RenderPresent(_renderer);
 }

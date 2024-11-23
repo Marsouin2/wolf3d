@@ -34,6 +34,9 @@ int main(int argc, char* argv[])
             WindowMgr windowMgr(800, 600); // QUESTION : creer sur le tas ou la pile la classe WindowMgr ?
             DrawerMgr drawerMgr(windowMgr.getWindow());
             drawerMgr.drawPixel();
+            drawerMgr.drawHorizontalLine(100, 100, 100);
+            drawerMgr.drawVerticalLine(100, 100, 100);
+            drawerMgr.renderWindow();
             bool isRunning = true;
             SDL_Event event;
             while (isRunning) 
