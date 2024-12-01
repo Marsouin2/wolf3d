@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include "../includes/DrawerMgr.h"
+#include "../includes/SingletonFileReader.h"
 #include "../includes/WindowMgr.h"
 
 // ---- class list :
@@ -33,6 +34,8 @@ int main(int argc, char* argv[])
             // parser la map en entree et donner les parametres a la classe (resolution etc...)
             WindowMgr windowMgr(800, 600); // QUESTION : creer sur le tas ou la pile la classe WindowMgr ?
             DrawerMgr drawerMgr(windowMgr.getWindow());
+            SingletonFileReader& singletonFileReader = SingletonFileReader::getInstance();
+            singletonFileReader.doSomething();
             drawerMgr.drawPixel();
             drawerMgr.drawHorizontalLine(100, 100, 100);
             drawerMgr.drawVerticalLine(100, 100, 100);
