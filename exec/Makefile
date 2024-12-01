@@ -23,3 +23,6 @@ $(TARGET): $(SRC)
 # clean rule
 clean:
 	rm -f $(TARGET)
+
+# re rule
+re: clean all
