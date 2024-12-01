@@ -15,7 +15,7 @@ int main(int argc, char* argv[])
 {
     uint8_t retVal = 0;
 
-    if (argc != 1) // for now 1 but should be 2 (map as input)
+    if (argc != 2) // for now 1 but should be 2 (map as input)
     {
         std::cerr << "ERROR : usage = ./wolf3d <input_map.map>" << std::endl;
         retVal = -1;
@@ -32,10 +32,11 @@ int main(int argc, char* argv[])
         {
             // everything is good (arg nb and SDL init OK)
             // parser la map en entree et donner les parametres a la classe (resolution etc...)
+            const std::string fileName(argv[1]);
             WindowMgr windowMgr(800, 600); // QUESTION : creer sur le tas ou la pile la classe WindowMgr ?
             DrawerMgr drawerMgr(windowMgr.getWindow());
             SingletonFileReader& singletonFileReader = SingletonFileReader::getInstance();
-            singletonFileReader.doSomething();
+            std::vector<char> fileContent = singletonFileReader.readAndGetFileContent(fileName);
             drawerMgr.drawPixel();
             drawerMgr.drawHorizontalLine(100, 100, 100);
             drawerMgr.drawVerticalLine(100, 100, 100);

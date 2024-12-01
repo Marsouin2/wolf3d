@@ -1,4 +1,6 @@
+#include <fstream>
 #include <iostream>
+#include <vector>
 
 class SingletonFileReader
 {
@@ -14,5 +16,5 @@ public:
         return instance;
     }
 
-    void doSomething() { std::cout << "Je suis le singleton" << std::endl; }
+    std::vector<char> readAndGetFileContent(const std::string &rFilename);
 };
