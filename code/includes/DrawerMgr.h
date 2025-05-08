@@ -1,4 +1,4 @@
-#include <SDL2/SDL.h>
+/*#include <SDL2/SDL.h>
 
 #include "WindowMgr.h"
 
@@ -18,8 +18,8 @@ public: // functions
     void drawVerticalLine(const int &length, const int &startPosX, const int &startPosY);
     void drawHorizontalLine(const int &length, const int &startPosX, const int &startPosY);
     
-    /* Display all what has been drawer since last renderWindow() */
+    // Display all what has been drawer since last renderWindow()
     void setWindowBackground(void);
     void renderWindow(void);
     void destroyRenderer(); // pareil ici 
-};
+};*/

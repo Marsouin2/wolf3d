@@ -1,28 +1,24 @@
-# Usefule folders
-SRC_FOLDER = src/
-INCLUDES_FOLDER = includes/
-CODE_FOLDER = ../code/
+# Chemins
+SRC_DIR = ../code/src
+INC_DIR = ../code/includes
 
-# Exec name
+# Nom de l'exécutable
 TARGET = wolf3d
 
-# Sources files
-SRC = $(CODE_FOLDER)$(SRC_FOLDER)*.cpp
+# Récupère tous les fichiers .cpp dans SRC_DIR
+SRCS = $(wildcard $(SRC_DIR)/*.cpp)
 
-# Flags
+# Options de compilation
 CXX = g++
-CXXFLAGS = -Wall -g
-LDFLAGS = -lSDL2
+CXXFLAGS = -std=c++11 -I$(INC_DIR) `sdl2-config --cflags`
+LDFLAGS = `sdl2-config --libs`
 
-# all rule
+# Règle par défaut
 all: $(TARGET)
 
-$(TARGET): $(SRC)
-	$(CXX) $(CXXFLAGS) -o $(TARGET) $(SRC) $(LDFLAGS)
+$(TARGET): $(SRCS)
+	$(CXX) $(CXXFLAGS) -o $(TARGET) $(SRCS) $(LDFLAGS)
 
-# clean rule
+# Nettoyage
 clean:
 	rm -f $(TARGET)
-
-# re rule
-re: clean all
