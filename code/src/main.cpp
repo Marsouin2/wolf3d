@@ -23,6 +23,19 @@ int main(int argc, char* argv[])
         return 1;
     }
 
+    const int gameMap[9][12] = 
+    {
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1,
+        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+    };
+
     // Création du rendu
     SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     if (!renderer) 
@@ -92,7 +105,6 @@ int main(int argc, char* argv[])
                 }
             }
 
-
             if (event.type == SDL_QUIT) 
             {
                 running = false;
@@ -102,6 +114,24 @@ int main(int argc, char* argv[])
         // Fond noir
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // noir
         SDL_RenderClear(renderer);
+
+        // render walls in blue
+        for (int i = 0; i < 9; ++i)
+        {
+            for (int y = 0; y < 12; ++y)
+            {
+                if (gameMap[i][y] == 1) 
+                {
+                    // render a wall
+                    SDL_SetRenderDrawColor( renderer, 0, 0, 255, 255 );
+                    //                  x    y   width height
+                    SDL_Rect wall = { y*64, i*64, 64, 64 };
+                    //SDL_RenderDrawRect( renderer, &player );
+                    // Draw filled square
+                    SDL_RenderFillRect(renderer, &wall);
+                }
+            }
+        }
 
         // basic square representing the player
         SDL_SetRenderDrawColor( renderer, 255, 165, 0, 255 );
