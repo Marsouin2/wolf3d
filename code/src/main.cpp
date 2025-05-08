@@ -37,11 +37,62 @@ int main(int argc, char* argv[])
     bool running = true;
     SDL_Event event;
 
+    int playerPositionX = WINDOW_WIDTH / 2;
+    int playerPositionY = WINDOW_HEIGHT / 2;
+
     while (running) 
     {
         // Gestion des événements
         while (SDL_PollEvent(&event)) 
         {
+            //Select surfaces based on key press
+            if (SDL_KEYDOWN == event.type) // key has been pressed (not released yet)
+            {
+                switch( event.key.keysym.sym )
+                {
+                    case SDLK_UP:
+                        if (19 < playerPositionY)
+                        {
+                            std::cout << "UP KEY HAS BEEN PRESSED OUT !" << std::endl;
+                            playerPositionY -= 20;
+                        }
+                        break;
+
+                    case SDLK_DOWN:
+                        if (580 > playerPositionY)
+                        {
+                            std::cout << "DOWN KEY HAS BEEN PRESSED OUT !" << std::endl;
+                            playerPositionY += 20;
+                        }
+                        break;
+
+                    case SDLK_LEFT:
+                        if (19 < playerPositionX)
+                        {
+                            std::cout << "LEFT KEY HAS BEEN PRESSED OUT !" << std::endl;
+                            playerPositionX -= 20;
+                        }
+                        break;
+
+                    case SDLK_RIGHT:
+                        if (780 > playerPositionX)
+                        {
+                            std::cout << "RIGHT KEY HAS BEEN PRESSED OUT !" << std::endl;
+                            playerPositionX += 20;
+                        }
+                        break;
+
+                    case SDLK_ESCAPE:
+                        running = false;
+                        break;
+
+                    default :
+                        std::cout << "Unknown key has been pressed out : nothing will happens..." << std::endl;
+                        break;
+                }
+            }
+
+
             if (event.type == SDL_QUIT) 
             {
                 running = false;
@@ -54,7 +105,8 @@ int main(int argc, char* argv[])
 
         // basic square representing the player
         SDL_SetRenderDrawColor( renderer, 255, 165, 0, 255 );
-        SDL_Rect player = { 12, 12, 12, 12 };
+        //                  x    y   width height
+        SDL_Rect player = { playerPositionX, playerPositionY, 12, 12 };
         //SDL_RenderDrawRect( renderer, &player );
         // Draw filled square
         SDL_RenderFillRect(renderer, &player);
