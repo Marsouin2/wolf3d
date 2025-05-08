@@ -4,9 +4,11 @@
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
 
-int main(int argc, char* argv[]) {
+int main(int argc, char* argv[]) 
+{
     // Initialisation de SDL
-    if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+    if (SDL_Init(SDL_INIT_VIDEO) != 0) 
+    {
         std::cerr << "Erreur d'initialisation de SDL: " << SDL_GetError() << std::endl;
         return 1;
     }
@@ -14,7 +16,8 @@ int main(int argc, char* argv[]) {
     // Création de la fenêtre
     SDL_Window* window = SDL_CreateWindow("Fenêtre SDL", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 
                                           WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
-    if (!window) {
+    if (!window) 
+    {
         std::cerr << "Erreur lors de la création de la fenêtre: " << SDL_GetError() << std::endl;
         SDL_Quit();
         return 1;
@@ -22,7 +25,8 @@ int main(int argc, char* argv[]) {
 
     // Création du rendu
     SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-    if (!renderer) {
+    if (!renderer) 
+    {
         std::cerr << "Erreur lors de la création du renderer: " << SDL_GetError() << std::endl;
         SDL_DestroyWindow(window);
         SDL_Quit();
@@ -33,10 +37,13 @@ int main(int argc, char* argv[]) {
     bool running = true;
     SDL_Event event;
 
-    while (running) {
+    while (running) 
+    {
         // Gestion des événements
-        while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_QUIT) {
+        while (SDL_PollEvent(&event)) 
+        {
+            if (event.type == SDL_QUIT) 
+            {
                 running = false;
             }
         }
@@ -45,10 +52,12 @@ int main(int argc, char* argv[]) {
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // noir
         SDL_RenderClear(renderer);
 
-        // Ligne verte verticale
-        SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255); // vert
-        int centerX = WINDOW_WIDTH / 2;
-        SDL_RenderDrawLine(renderer, centerX, 0, centerX, WINDOW_HEIGHT);
+        // basic square representing the player
+        SDL_SetRenderDrawColor( renderer, 255, 165, 0, 255 );
+        SDL_Rect player = { 12, 12, 12, 12 };
+        //SDL_RenderDrawRect( renderer, &player );
+        // Draw filled square
+        SDL_RenderFillRect(renderer, &player);
 
         // Affichage
         SDL_RenderPresent(renderer);
