@@ -66,7 +66,6 @@ int main(int argc, char* argv[])
                     case SDLK_UP:
                         if (19 < playerPositionY)
                         {
-                            std::cout << "UP KEY HAS BEEN PRESSED OUT !" << std::endl;
                             playerPositionY -= 20;
                         }
                         break;
@@ -74,7 +73,6 @@ int main(int argc, char* argv[])
                     case SDLK_DOWN:
                         if (580 > playerPositionY)
                         {
-                            std::cout << "DOWN KEY HAS BEEN PRESSED OUT !" << std::endl;
                             playerPositionY += 20;
                         }
                         break;
@@ -82,7 +80,6 @@ int main(int argc, char* argv[])
                     case SDLK_LEFT:
                         if (19 < playerPositionX)
                         {
-                            std::cout << "LEFT KEY HAS BEEN PRESSED OUT !" << std::endl;
                             playerPositionX -= 20;
                         }
                         break;
@@ -90,7 +87,6 @@ int main(int argc, char* argv[])
                     case SDLK_RIGHT:
                         if (780 > playerPositionX)
                         {
-                            std::cout << "RIGHT KEY HAS BEEN PRESSED OUT !" << std::endl;
                             playerPositionX += 20;
                         }
                         break;
@@ -140,6 +136,9 @@ int main(int argc, char* argv[])
         //SDL_RenderDrawRect( renderer, &player );
         // Draw filled square
         SDL_RenderFillRect(renderer, &player);
+
+        // render line of where the player is looking at (x start, y start, x end, y end)
+        SDL_RenderDrawLine(renderer, playerPositionX, playerPositionY, playerPositionX - 64, playerPositionY - 64);
 
         // Affichage
         SDL_RenderPresent(renderer);
