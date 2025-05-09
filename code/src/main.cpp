@@ -1,8 +1,16 @@
 #include <SDL.h>
 #include <iostream>
+#include <cmath>
 
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
+
+const float PI = 3.1415926;
+
+const float UP_LINE = ((3 * PI) / 2);
+const float DOWN_LINE = PI / 2;
+const float LEFT_LINE = PI;
+const float RIGHT_LINE = 2 * PI;
 
 int main(int argc, char* argv[]) 
 {
@@ -53,6 +61,10 @@ int main(int argc, char* argv[])
     int playerPositionX = WINDOW_WIDTH / 2;
     int playerPositionY = WINDOW_HEIGHT / 2;
 
+    float lineOfViewEndAngle = 0.0f;
+    float lineOfViewEndX = 0.0f;
+    float lineOfViewEndY = 0.0f;
+    
     while (running) 
     {
         // Gestion des événements
@@ -89,6 +101,14 @@ int main(int argc, char* argv[])
                         {
                             playerPositionX += 20;
                         }
+                        break;
+
+                    case 0x00000071u:
+                        lineOfViewEndAngle -= 0.1f;
+                        break;
+
+                    case 0x00000065u:
+                        lineOfViewEndAngle += 0.1f;
                         break;
 
                     case SDLK_ESCAPE:
@@ -138,7 +158,10 @@ int main(int argc, char* argv[])
         SDL_RenderFillRect(renderer, &player);
 
         // render line of where the player is looking at (x start, y start, x end, y end)
-        SDL_RenderDrawLine(renderer, playerPositionX, playerPositionY, playerPositionX - 64, playerPositionY - 64);
+        //SDL_RenderDrawLine(renderer, playerPositionX, playerPositionY, playerPositionX - 64, playerPositionY - 64);
+        lineOfViewEndX = (playerPositionX+5) + cos(LEFT_LINE + lineOfViewEndAngle) * 64;
+        lineOfViewEndY = (playerPositionY+5) + sin(LEFT_LINE + lineOfViewEndAngle) * 64; // care Y is inverted in SDL (Y increase when going bottom instead of going up)
+        SDL_RenderDrawLine(renderer, playerPositionX+5, playerPositionY+5, lineOfViewEndX, lineOfViewEndY);
 
         // Affichage
         SDL_RenderPresent(renderer);
